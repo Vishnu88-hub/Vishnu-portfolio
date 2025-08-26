@@ -268,6 +268,328 @@ document.addEventListener('DOMContentLoaded', function() {
             opacity: 0;
             transition: opacity 0.5s ease;
         }
+
+        /* Mouse Tracking Styles */
+        .white-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transition: transform 0.1s ease;
+        }
+
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-primary);
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.3s ease;
+        }
+
+        .magnetic {
+            transition: transform 0.3s ease;
+        }
+
+        .interactive-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 230, 230, 0.1) 0%, transparent 70%);
+            transition: transform 0.1s ease;
+        }
+
+        .hero-bg .shape {
+            transition: transform 0.1s ease;
+        }
     `;
     document.head.appendChild(style);
+
+    // ===== MOUSE TRACKING FEATURES =====
+
+    // Small White Dot Follower
+    const whiteDot = document.createElement('div');
+    whiteDot.className = 'white-dot';
+    whiteDot.style.cssText = `
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        transition: transform 0.1s ease;
+    `;
+    document.body.appendChild(whiteDot);
+
+    // Custom Cursor
+    const cursor = document.createElement('div');
+    cursor.className = 'cursor';
+    document.body.appendChild(cursor);
+
+    const cursorFollower = document.createElement('div');
+    cursorFollower.className = 'cursor-follower';
+    document.body.appendChild(cursorFollower);
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+    let dotX = 0;
+    let dotY = 0;
+
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        // Update cursor position immediately
+        cursor.style.left = mouseX - 10 + 'px';
+        cursor.style.top = mouseY - 10 + 'px';
+
+        // Update white dot with slight delay for trailing effect
+        dotX = mouseX - 4;
+        dotY = mouseY - 4;
+    });
+
+    // Smooth white dot animation
+    function updateWhiteDot() {
+        const currentX = parseFloat(whiteDot.style.left || '0');
+        const currentY = parseFloat(whiteDot.style.top || '0');
+
+        const newX = currentX + (dotX - currentX) * 0.15;
+        const newY = currentY + (dotY - currentY) * 0.15;
+
+        whiteDot.style.left = newX + 'px';
+        whiteDot.style.top = newY + 'px';
+
+        requestAnimationFrame(updateWhiteDot);
+    }
+    updateWhiteDot();
+
+    // Smooth cursor follower animation
+    function updateCursorFollower() {
+        cursorX += (mouseX - cursorX) * 0.1;
+        cursorY += (mouseY - cursorY) * 0.1;
+
+        cursorFollower.style.left = cursorX - 20 + 'px';
+        cursorFollower.style.top = cursorY - 20 + 'px';
+
+        requestAnimationFrame(updateCursorFollower);
+    }
+    updateCursorFollower();
+
+    // Magnetic effect for interactive elements
+    const magneticElements = document.querySelectorAll('a, button, .project-card, .skill-tag, .social-link');
+
+    magneticElements.forEach(element => {
+        element.classList.add('magnetic');
+
+        element.addEventListener('mouseenter', (e) => {
+            cursor.style.transform = 'scale(1.5)';
+            cursorFollower.style.transform = 'scale(1.5)';
+            whiteDot.style.transform = 'scale(1.5)';
+        });
+
+        element.addEventListener('mouseleave', (e) => {
+            cursor.style.transform = 'scale(1)';
+            cursorFollower.style.transform = 'scale(1)';
+            whiteDot.style.transform = 'scale(1)';
+        });
+
+        element.addEventListener('mousemove', (e) => {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+
+            const deltaX = (e.clientX - centerX) * 0.3;
+            const deltaY = (e.clientY - centerY) * 0.3;
+
+            element.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        });
+
+        element.addEventListener('mouseleave', () => {
+            element.style.transform = 'translate(0, 0)';
+        });
+    });
+
+    // Interactive background shapes
+    const bgShapes = [];
+    for (let i = 0; i < 5; i++) {
+        const shape = document.createElement('div');
+        shape.className = 'bg-shape';
+        shape.style.width = Math.random() * 200 + 100 + 'px';
+        shape.style.height = shape.style.width;
+        shape.style.left = Math.random() * 100 + '%';
+        shape.style.top = Math.random() * 100 + '%';
+        shape.style.opacity = '0.3';
+
+        document.body.appendChild(shape);
+        bgShapes.push(shape);
+    }
+
+    // Mouse movement parallax for background shapes
+    document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+
+        bgShapes.forEach((shape, index) => {
+            const speed = (index + 1) * 0.5;
+            const x = (mouseX - 0.5) * speed * 100;
+            const y = (mouseY - 0.5) * speed * 100;
+
+            shape.style.transform = `translate(${x}px, ${y}px)`;
+        });
+
+        // Enhanced hero shapes interaction
+        const shapes = document.querySelectorAll('.hero-bg .shape');
+        shapes.forEach((shape, index) => {
+            const rect = shape.getBoundingClientRect();
+            const shapeCenterX = rect.left + rect.width / 2;
+            const shapeCenterY = rect.top + rect.height / 2;
+
+            const deltaX = (e.clientX - shapeCenterX) * 0.02 * (index + 1);
+            const deltaY = (e.clientY - shapeCenterY) * 0.02 * (index + 1);
+
+            shape.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        });
+    });
+
+    // Mouse click effects
+    document.addEventListener('click', (e) => {
+        // Create ripple effect
+        const ripple = document.createElement('div');
+        ripple.style.cssText = `
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-primary) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9997;
+            left: ${e.clientX - 10}px;
+            top: ${e.clientY - 10}px;
+            animation: ripple 0.6s ease-out forwards;
+        `;
+
+        document.body.appendChild(ripple);
+
+        setTimeout(() => ripple.remove(), 600);
+
+        // Add ripple animation
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `
+            @keyframes ripple {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(20);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(rippleStyle);
+    });
+
+    // Hide cursor on mouse leave
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        cursorFollower.style.opacity = '0';
+        whiteDot.style.opacity = '0';
+    });
+
+    document.addEventListener('mouseenter', () => {
+        cursor.style.opacity = '1';
+        cursorFollower.style.opacity = '1';
+        whiteDot.style.opacity = '1';
+    });
+
+    // Performance optimization - throttle mouse events
+    let throttleTimer;
+    const throttleDelay = 16; // ~60fps
+
+    function throttledMouseMove(e) {
+        if (!throttleTimer) {
+            throttleTimer = setTimeout(() => {
+                // Update any heavy mouse-dependent calculations here
+                throttleTimer = null;
+            }, throttleDelay);
+        }
+    }
+
+    // Add mouse tracking to existing particle system
+    const originalCreateParticle = createParticle;
+    function createParticle() {
+        originalCreateParticle();
+
+        // Add mouse-influenced particles occasionally
+        if (Math.random() < 0.3) {
+            const particle = document.createElement('div');
+            particle.className = 'particle mouse-particle';
+            particle.style.cssText = `
+                position: fixed;
+                width: 6px;
+                height: 6px;
+                background: var(--accent-primary);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                left: ${mouseX}px;
+                top: ${mouseY}px;
+                animation: mouseParticleFloat 2s linear forwards;
+            `;
+
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 2000);
+        }
+    }
+
+    // Add mouse particle animation
+    const mouseParticleStyle = document.createElement('style');
+    mouseParticleStyle.textContent = `
+        @keyframes mouseParticleFloat {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50px) scale(0);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(mouseParticleStyle);
 });

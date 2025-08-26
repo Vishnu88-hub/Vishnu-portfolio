@@ -1019,6 +1019,49 @@
     background: var(--accent-primary);
   }
 
+  /* Mouse Tracking Enhancements */
+  .cursor, .cursor-follower {
+    transition: all 0.1s ease;
+  }
+
+  .magnetic {
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .bg-shape {
+    will-change: transform;
+  }
+
+  /* Enhanced hover effects for mouse tracking */
+  .project-card:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  .skill-tag:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .social-link:hover {
+    transform: translateY(-8px) scale(1.1);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Smooth transitions for all interactive elements */
+  a, button, .project-card, .skill-tag, .social-link {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Performance optimizations */
+  .hero-bg .shape {
+    will-change: transform;
+  }
+
+  .particle {
+    will-change: transform, opacity;
+  }
+
   .hero-flex {
     display: flex;
     align-items: center;
