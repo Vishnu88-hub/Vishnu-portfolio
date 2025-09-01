@@ -517,7 +517,7 @@ section {
   top: 0;
   bottom: -3rem;
   width: 2px;
-  background: linear-gradient(120deg, #daed05 0%, #e5f68a 100%);
+  background: linear-gradient(120deg, #e5e6df 0%, #484845 100%);
 }
 
 .education-date {
