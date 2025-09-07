@@ -442,7 +442,6 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: pulse 10s infinite;
 }
 
 .about-paragraphs p {
@@ -1230,4 +1229,5 @@ button,
   transform: rotate(-4deg);
   z-index: 1;
   opacity: 0.95;
+
 }
