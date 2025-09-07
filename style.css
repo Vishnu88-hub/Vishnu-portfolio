@@ -528,7 +528,7 @@ section {
 }
 
 .education-content {
-  background: rgb(249, 244, 244);
+  background: white;
   padding: 2rem;
   border-radius: 15px;
   box-shadow: 0 5px 20px var(--shadow);
@@ -539,7 +539,7 @@ section {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--text-primary);
+  color: var(--accent-secondary);
 }
 
 .education-institution {
