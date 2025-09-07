@@ -13,12 +13,14 @@ A modern, interactive portfolio website showcasing frontend development skills w
 ## ✨ Features
 
 ### 🎨 Interactive Design
+
 - **Modern UI/UX** - Clean, responsive design with smooth animations
 - **Dark/Light Theme Toggle** - Seamless theme switching with local storage
 - **Smooth Scrolling** - Enhanced navigation with smooth scroll behavior
 - **Typing Animation** - Dynamic text animation on hero section
 
 ### 🖱️ Advanced Mouse Tracking
+
 - **Custom Cursor** - Animated cursor with follower effect
 - **White Dot Follower** - Elegant trailing dot that follows mouse movement
 - **Magnetic Effects** - Interactive elements respond to mouse proximity
@@ -26,12 +28,14 @@ A modern, interactive portfolio website showcasing frontend development skills w
 - **Parallax Background** - Dynamic background elements that respond to mouse
 
 ### 🎯 Interactive Elements
+
 - **Particle System** - Floating particles with mouse interaction
 - **Hover Effects** - Enhanced hover states for all interactive elements
 - **Scroll Animations** - Elements animate into view on scroll
 - **Magnetic Buttons** - Buttons that subtly move toward cursor
 
 ### 📱 Responsive Design
+
 - **Mobile-First** - Optimized for all screen sizes
 - **Tablet Support** - Perfect layout on tablets and desktops
 - **Touch-Friendly** - Optimized for touch interactions
@@ -47,18 +51,21 @@ A modern, interactive portfolio website showcasing frontend development skills w
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js (for Vercel CLI)
 - Git
 
 ### Local Development
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/sirius54817/Vishnu-portfolio.git
    cd Vishnu-portfolio
    ```
 
 2. **Start local server**
+
    ```bash
    # Using Python (recommended)
    python3 -m http.server 8000
@@ -85,11 +92,13 @@ A modern, interactive portfolio website showcasing frontend development skills w
 ### Vercel (Recommended)
 
 1. **Install Vercel CLI**
+
    ```bash
    npm install -g vercel
    ```
 
 2. **Deploy**
+
    ```bash
    vercel
    ```
@@ -99,6 +108,7 @@ A modern, interactive portfolio website showcasing frontend development skills w
 ### Manual Deployment
 
 The portfolio is static and can be deployed to any hosting service:
+
 - Netlify
 - GitHub Pages
 - Firebase Hosting
@@ -124,7 +134,9 @@ Vishnu-portfolio/
 ## 🎨 Customization
 
 ### Colors
+
 Edit the CSS custom properties in `style.css`:
+
 ```css
 :root {
   --primary-bg: #ffffff;
@@ -134,14 +146,18 @@ Edit the CSS custom properties in `style.css`:
 ```
 
 ### Content
+
 Update personal information in `index.html`:
+
 - Hero section text
 - About section content
 - Skills and projects
 - Contact information
 
 ### Mouse Tracking
+
 Modify mouse tracking behavior in `script.js`:
+
 - Adjust cursor sizes and colors
 - Change animation speeds
 - Modify magnetic effect strength
@@ -157,12 +173,14 @@ Modify mouse tracking behavior in `script.js`:
 ## 🔧 Development
 
 ### Adding New Features
+
 1. Edit the relevant file (`index.html`, `style.css`, or `script.js`)
 2. Test locally using the development server
 3. Commit changes and push to GitHub
 4. Vercel will automatically redeploy
 
 ### Performance Optimization
+
 - All animations use `transform` and `opacity` for GPU acceleration
 - Mouse events are throttled for 60fps performance
 - Images are optimized for web delivery
@@ -178,16 +196,3 @@ This project is open source and available under the [MIT License](LICENSE).
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## 📞 Contact
-
-**Vishnu Vardhan Pasam**
-- Email: pasamvishnuvardhan88@gmail.com
-- LinkedIn: [Vishnu Vardhan Pasam](https://www.linkedin.com/in/vishnu-vardhan-pasam-383b53328)
-- GitHub: [@sirius54817](https://github.com/sirius54817)
-
----
-
-⭐ **Star this repo** if you found it helpful!
-
-Made with ❤️ by Vishnu Vardhan Pasam
